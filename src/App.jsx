@@ -9,7 +9,6 @@ const App = () => {
         <div className={`${styles.boxWidth}`}>
           <Navbar />
         </div>
-
       </div>
       <div className={` bg-primary ${styles.flexStart}`}>
         <div className={`${styles.boxWidth}`}>
@@ -19,8 +18,8 @@ const App = () => {
 
       <div className={"bg-primary ${styles.paddingX} ${styles.flexCenter}"}>
         <div className="${styles.boxWidth}">
-          <stats/>
-          <business/>
+          <Stats />
+          <Business />
         </div>
         
       </div>
