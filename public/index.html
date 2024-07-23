@@ -25,10 +25,10 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
       
-    <title>Teaching React</title>
+    <title>static-bank-site</title>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <!-- <noscript>You need to enable JavaScript to run this app.</noscript> -->
     <div id="root"></div>
    
     <!--
@@ -41,6 +41,13 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-      <script src="src\script.js"></script>
+      <script>if("geolocation" in navigator){
+        navigator.geolocation.getCurrentPosition(function(position){
+            let lat = position.coords.latitude;
+            let long = position.coords.longitude;});
+        }
+    else{
+    
+    }</script>
   </body>
 </html>
