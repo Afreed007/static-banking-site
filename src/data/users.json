@@ -1,0 +1,15 @@
+[
+    {
+      "accountNumber": "1234567890",
+      "debitPin": "1234",
+      "email": "",
+      "password": ""
+    },
+    {
+      "accountNumber": "9876543210",
+      "debitPin": "4321",
+      "email": "",
+      "password": ""
+    }
+  ]
+  

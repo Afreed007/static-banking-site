@@ -1,10 +1,63 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import usersData from "../data/users.json"; // Import local JSON
 
 const LoginModal = ({ isOpen, onClose }) => {
-  const [isSignup, setIsSignup] = useState(false); // Toggle between Login & Signup
+  const [isSignup, setIsSignup] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState(""); // For signup
+  const [accountNumber, setAccountNumber] = useState(""); // For signup
+  const [debitPin, setDebitPin] = useState(""); // For signup
+  const [users, setUsers] = useState([]); // Store users from JSON
+
+  // Load users from JSON and localStorage on mount
+  useEffect(() => {
+    const storedUsers = JSON.parse(localStorage.getItem("users")) || usersData;
+    setUsers(storedUsers);
+  }, []);
+
+  // Handle Signup
+  const handleSignup = (e) => {
+    e.preventDefault();
+    const userIndex = users.findIndex(
+      (user) => user.accountNumber === accountNumber && user.debitPin === debitPin
+    );
+
+    if (userIndex !== -1) {
+      // Update user with email & password
+      let updatedUsers = [...users];
+      updatedUsers[userIndex] = {
+        ...updatedUsers[userIndex],
+        email,
+        password
+      };
+
+      // Save updated users to localStorage
+      localStorage.setItem("users", JSON.stringify(updatedUsers));
+      setUsers(updatedUsers);
+
+      alert("✅ Signup Successful! Now login with your credentials.");
+      setIsSignup(false); // Switch to login
+    } else {
+      alert("❌ Invalid Account Number or Debit PIN.");
+    }
+  };
+
+  // Handle Login
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    // Get updated users from localStorage
+    const storedUsers = JSON.parse(localStorage.getItem("users")) || users;
+    const validUser = storedUsers.find(
+      (user) => user.email === email && user.password === password
+    );
+
+    if (validUser) {
+      alert("✅ Login Successful!");
+    } else {
+      alert("❌ Invalid Email or Password!");
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -25,19 +78,33 @@ const LoginModal = ({ isOpen, onClose }) => {
         </h2>
 
         {/* Form */}
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={isSignup ? handleSignup : handleLogin}>
           {isSignup && (
-            <div>
-              <label className="block text-white font-medium">Full Name</label>
-              <input
-                type="text"
-                placeholder="Enter your name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
-                required
-              />
-            </div>
+            <>
+              <div>
+                <label className="block text-white font-medium">Account Number</label>
+                <input
+                  type="text"
+                  placeholder="Enter your account number"
+                  value={accountNumber}
+                  onChange={(e) => setAccountNumber(e.target.value)}
+                  className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-white font-medium">Debit Card PIN</label>
+                <input
+                  type="password"
+                  placeholder="Enter your debit card PIN"
+                  value={debitPin}
+                  onChange={(e) => setDebitPin(e.target.value)}
+                  className="w-full px-4 py-2 mt-1 border rounded-lg focus:ring-2 focus:ring-blue-400 outline-none"
+                  required
+                />
+              </div>
+            </>
           )}
 
           <div>

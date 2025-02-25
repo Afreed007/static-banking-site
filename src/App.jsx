@@ -16,7 +16,7 @@ const App = () => {
 
       <div className={`bg-primary ${styles.flexStart}`}>
         <div className={`${styles.boxWidth}`}>
-          {/* ✅ Pass setIsLoginOpen to Hero */}
+          
           <Hero setIsLoginOpen={setIsLoginOpen} />
         </div>
       </div>
@@ -36,7 +36,7 @@ const App = () => {
         </div>
       </div>
 
-      {/* ✅ Login Modal */}
+      {/*  Login Modal */}
       <LoginModal isOpen={isLoginOpen} onClose={() => setIsLoginOpen(false)} />
     </div>
   );
