@@ -1,6 +1,6 @@
 import { features } from "../constants";
 import styles, { layout } from "../style";
-import Button from "./Button";
+// import Button from "./Button";
 
 const FeatureCard = ({ icon, title, content, index }) => (
   <div
@@ -35,7 +35,7 @@ const Business = () => (
         building credit, earning rewards and saving money. But with hundreds of
         credit cards on the market.
       </p>
-      <Button styles={"mt-10"}/>
+      {/* <Button styles={"mt-10"}/> */}
     </div>
     <div className={`${layout.sectionImg} flex-col` }> 
       {features.map((feature, index) => (
