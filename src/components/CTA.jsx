@@ -2,11 +2,6 @@ import React from "react";
 import LoginModal from "./LoginModal";
 import styles from "../style"
 
-<button type="button" className={`py-4 px-6 font-poppins font-medium text-[18px] text-primary bg-blue-gradient rounded-[10px] outline-none ${styles}`}>
-    Get Started
-  </button>
-
-
 const CTA = ({ isLoginOpen, setIsLoginOpen }) => {
   return (
     <section className={`${styles.flexCenter} ${styles.marginY} ${styles.padding} sm:flex-row flex-col bg-black-gradient-2 rounded-[20px] box-shadow`}>

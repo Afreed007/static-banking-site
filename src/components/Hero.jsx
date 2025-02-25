@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../style";
 import { discount, robot } from "../assests";
 import GetStarted from "./GetStarted";
-const Hero = () => {
+const Hero = ({ setIsLoginOpen }) => {
   return (
     <section
     id="home"
@@ -24,7 +24,7 @@ const Hero = () => {
           <span className="text-gradient">Generation</span>
         </h1>
         <div className="ss:flex hidden md:mr-4 mr-0">
-          <GetStarted />
+          <GetStarted setIsLoginOpen={setIsLoginOpen} />
         </div>
       </div>
 
