@@ -10,6 +10,12 @@
       "debitPin": "4321",
       "email": "",
       "password": ""
+    },
+    {
+      "accountNumber": "99988877766",
+      "debitPin": "9998",
+      "email": "",
+      "password": ""
     }
   ]
   
