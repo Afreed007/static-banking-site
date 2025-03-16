@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import usersData from "../data/users.json"; // Import local JSON
+import { useNavigate } from "react-router-dom";
+import usersData from "../data/users.json"; // Importing users.json
 
 const LoginModal = ({ isOpen, onClose }) => {
   const [isSignup, setIsSignup] = useState(false);
@@ -7,36 +8,49 @@ const LoginModal = ({ isOpen, onClose }) => {
   const [password, setPassword] = useState("");
   const [accountNumber, setAccountNumber] = useState(""); // For signup
   const [debitPin, setDebitPin] = useState(""); // For signup
-  const [users, setUsers] = useState([]); // Store users from JSON
+  const [users, setUsers] = useState({});
 
-  // Load users from JSON and localStorage on mount
+  const navigate = useNavigate();
+
   useEffect(() => {
-    const storedUsers = JSON.parse(localStorage.getItem("users")) || usersData;
-    setUsers(storedUsers);
+    setUsers(usersData); // Load users.json as state
   }, []);
 
   // Handle Signup
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-    const userIndex = users.findIndex(
-      (user) => user.accountNumber === accountNumber && user.debitPin === debitPin
+
+    // Check if accountNumber and debitPin match in users.json
+    const userKey = Object.keys(users).find(
+      (key) =>
+        users[key].accountNumber === accountNumber &&
+        users[key].debitPin === debitPin
     );
 
-    if (userIndex !== -1) {
-      // Update user with email & password
-      let updatedUsers = [...users];
-      updatedUsers[userIndex] = {
-        ...updatedUsers[userIndex],
+    if (userKey) {
+      let updatedUsers = { ...users };
+      updatedUsers[userKey] = {
+        ...updatedUsers[userKey],
         email,
-        password
+        password,
       };
 
-      // Save updated users to localStorage
-      localStorage.setItem("users", JSON.stringify(updatedUsers));
-      setUsers(updatedUsers);
+      // Simulating writing to users.json (In real-world, this requires backend)
+      try {
+        await fetch("/data/users.json", {
+          method: "PUT", // Simulating write operation
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedUsers),
+        });
 
-      alert("✅ Signup Successful! Now login with your credentials.");
-      setIsSignup(false); // Switch to login
+        alert("✅ Signup Successful! Now login with your credentials.");
+        setUsers(updatedUsers); // Update state
+        setIsSignup(false); // Switch back to Login mode
+      } catch (error) {
+        console.error("Error updating users.json:", error);
+      }
     } else {
       alert("❌ Invalid Account Number or Debit PIN.");
     }
@@ -46,14 +60,17 @@ const LoginModal = ({ isOpen, onClose }) => {
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // Get updated users from localStorage
-    const storedUsers = JSON.parse(localStorage.getItem("users")) || users;
-    const validUser = storedUsers.find(
-      (user) => user.email === email && user.password === password
+    // Check if email and password match in users.json
+    const validUserKey = Object.keys(users).find(
+      (key) =>
+        users[key].email === email && users[key].password === password
     );
 
-    if (validUser) {
+    if (validUserKey) {
       alert("✅ Login Successful!");
+      navigate("/dashboard", {
+        state: { transactions: users[validUserKey]?.transactions || [] },
+      });
     } else {
       alert("❌ Invalid Email or Password!");
     }
@@ -65,8 +82,8 @@ const LoginModal = ({ isOpen, onClose }) => {
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-md z-50">
       <div className="bg-primary p-8 rounded-2xl shadow-lg w-full max-w-md relative">
         {/* Close Button */}
-        <button 
-          className="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-xl" 
+        <button
+          className="absolute top-3 right-3 text-gray-600 hover:text-gray-900 text-xl"
           onClick={onClose}
         >
           ✕

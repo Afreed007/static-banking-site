@@ -10,5 +10,7 @@ import FeedbackCard from "./FeedbackCard";
 import Clients from "./Clients";
 import CTA from "./CTA";
 import Footer from "./Footer";
-export { Navbar, Hero, GetStarted, Stats, Business, Billing, CardDeal, Testimonials, FeedbackCard, Clients, Footer, CTA };
+import LoginModal from "./LoginModal";
+import Dashboard from "./Dashboard";
+export { Navbar, Hero, GetStarted, Stats, Business, Billing, CardDeal, Testimonials, FeedbackCard, Clients, Footer, CTA,LoginModal ,Dashboard};
 

@@ -5,7 +5,8 @@ const GetStarted = ({ setIsLoginOpen }) => {
   return (
     <button
       onClick={() => setIsLoginOpen(true)}
-      className={`${styles.flexCenter} w-[140px] h-[140px] rounded-full bg-blue-gradient p-[2px] cursor-pointer`}
+      className={`${styles.flexCenter} w-[140px] h-[140px] rounded-full bg-blue-gradient p-[2px] cursor-pointer transition-all duration-300 
+                  hover:bg-blue-600 hover:shadow-lg hover:scale-105`}
     >
       <div
         className={`${styles.flexCenter} flex-col bg-primary w-[100%] h-[100%] rounded-full`}

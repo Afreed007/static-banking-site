@@ -1,21 +1,16 @@
-[
-    {
-      "accountNumber": "01234567890",
-      "debitPin": "1234",
-      "email": "",
-      "password": ""
-    },
-    {
-      "accountNumber": "9876543210",
-      "debitPin": "4321",
-      "email": "",
-      "password": ""
-    },
-    {
-      "accountNumber": "99988877766",
-      "debitPin": "9998",
-      "email": "",
-      "password": ""
-    }
-  ]
-  
+{
+  "1001": {
+    "accountNumber": "01234567890",
+    "debitPin": "1234",
+    "email": "",
+    "password": "",
+    "transactions": []
+  },
+  "1002": {
+    "accountNumber": "1002",
+    "debitPin": "5678",
+    "email": "",
+    "password": "",
+    "transactions": []
+  }
+}
