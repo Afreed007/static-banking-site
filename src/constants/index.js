@@ -195,3 +195,27 @@ export const clients = [
     logo: dropbox,
   },
 ];
+
+export const users = {
+  "1001": {
+    accountNumber: "1001",
+    debitPin: "1234",
+    email: "john@example.com",
+    password: "securepass",
+    transactions: [
+      { date: "2025-03-10", description: "Groceries", amount: -50 },
+      { date: "2025-03-12", description: "Salary", amount: 1000 },
+      { date: "2025-03-14", description: "Online Shopping", amount: -100 },
+    ],
+  },
+  "1002": {
+    accountNumber: "1002",
+    debitPin: "5678",
+    email: "alice@example.com",
+    password: "mypassword",
+    transactions: [
+      { date: "2025-03-09", description: "Electricity Bill", amount: -120 },
+      { date: "2025-03-11", description: "Salary", amount: 2000 },
+    ],
+  },
+};
