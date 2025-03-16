@@ -26,7 +26,7 @@ const Dashboard = () => {
           Account Summary
         </h2>
         <p className="mt-2 text-white">
-          Current Balance: <span className="text-green-300 font-bold">${balance}</span>
+          Current Balance: <span className="text-green-300 font-bold">₹{balance}</span>
         </p>
       </div>
 
@@ -50,7 +50,7 @@ const Dashboard = () => {
                   <td className="p-2">{txn.date}</td>
                   <td className="p-2">{txn.description}</td>
                   <td className={`p-2 ${txn.amount > 0 ? 'text-green-300' : 'text-red-300'}`}>
-                    ${txn.amount}
+                    ₹{txn.amount}
                   </td>
                 </tr>
               ))}
