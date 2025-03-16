@@ -1,3 +1,40 @@
+# Signup and Login Process
+
+## Signup Process
+1. Users enter their **Account Number** and **Debit PIN** on the registration form.
+2. The system verifies these credentials.
+3. If the account number and PIN match an existing record, the user is prompted to set an **Email** and **Password**.
+4. The **Email** and **Password** are then stored future logins.
+5. The user is successfully registered.
+
+## Login Process
+1. Users enter their registered **Email** and **Password**.
+2. The system verifies these credentials.
+3. If the credentials match, the user is granted access to the dashboard.
+4. The dashboard displays account details and transaction history.
+
+**Example `users` Structure:**
+```json
+{
+  "1001": {
+    "accountNumber": "01234567890",
+    "debitPin": "1234",
+    "email": "",
+    "password": "",
+    "transactions": []
+  },
+  "1002": {
+    "accountNumber": "1002",
+    "debitPin": "5678",
+    "email": "",
+    "password": "",
+    "transactions": []
+  }
+}
+```
+
+---
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -68,3 +105,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
