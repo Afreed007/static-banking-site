@@ -1,53 +1,57 @@
 import React, { useState, useEffect } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-
-const transactions = [
-  { date: "2025-03-01", description: "Salary Credit", amount: 2000 },
-  { date: "2025-03-03", description: "Grocery Shopping", amount: -150 },
-  { date: "2025-03-05", description: "Online Subscription", amount: -30 },
-  { date: "2025-03-07", description: "Electricity Bill", amount: -100 },
-  { date: "2025-03-10", description: "Dining Out", amount: -50 },
-  { date: "2025-03-15", description: "Freelance Payment", amount: 500 },
-  { date: "2025-03-18", description: "Gym Membership", amount: -40 },
-  { date: "2025-03-20", description: "Internet Bill", amount: -60 },
-];
+import { users } from "../constants";
 
 const Dashboard = () => {
+  const userId = "1001"; // Example user ID
+  const user = users[userId];
+  const transactions = user.transactions;
+  
   const [balance, setBalance] = useState(0);
 
   useEffect(() => {
     const totalBalance = transactions.reduce((acc, txn) => acc + txn.amount, 0);
     setBalance(totalBalance);
-  }, []);
+  }, [transactions]);
 
   return (
-    <div className="p-8 bg-gray-100 min-h-screen">
-      <h1 className="text-3xl font-bold text-gray-800 mb-6">Banking Dashboard</h1>
+    <div className="bg-primary w-full min-h-screen flex flex-col justify-center items-center p-8">
+      <h1 className="text-3xl font-bold text-gradient mb-6">
+        Banking Dashboard
+      </h1>
 
       {/* Account Summary */}
-      <div className="bg-white p-6 rounded-lg shadow-md mb-6">
-        <h2 className="text-xl font-semibold text-gray-700">Account Summary</h2>
-        <p className="text-gray-600 mt-2">Current Balance: <span className="text-green-500 font-bold">${balance}</span></p>
+      <div className="p-6 rounded-lg shadow-lg w-full max-w-4xl border-2 border-blue-gradient transition-all duration-300 hover:bg-black-gradient">
+        <h2 className="text-xl font-semibold text-gradient">
+          Account Summary
+        </h2>
+        <p className="mt-2 text-white">
+          Current Balance: <span className="text-green-300 font-bold">${balance}</span>
+        </p>
       </div>
 
       {/* Transaction History */}
-      <div className="bg-white p-6 rounded-lg shadow-md mb-6">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">Transaction History</h2>
+      <div className="p-6 rounded-lg shadow-lg w-full max-w-4xl mt-6 border-2 border-blue-gradient transition-all duration-300 hover:bg-black-gradient">
+        <h2 className="text-xl font-semibold text-gradient mb-4">
+          Transaction History
+        </h2>
         <div className="overflow-auto max-h-80">
-          <table className="w-full text-left border-collapse">
+          <table className="w-full text-left border-collapse text-white">
             <thead>
               <tr>
-                <th className="p-2 border-b">Date</th>
-                <th className="p-2 border-b">Description</th>
-                <th className="p-2 border-b">Amount</th>
+                <th className="p-2 border-b border-gray-300">Date</th>
+                <th className="p-2 border-b border-gray-300">Description</th>
+                <th className="p-2 border-b border-gray-300">Amount</th>
               </tr>
             </thead>
             <tbody>
               {transactions.map((txn, index) => (
-                <tr key={index} className="border-b">
+                <tr key={index} className="border-b border-gray-300 hover:bg-blue-600 transition-all duration-300">
                   <td className="p-2">{txn.date}</td>
                   <td className="p-2">{txn.description}</td>
-                  <td className={`p-2 ${txn.amount > 0 ? 'text-green-500' : 'text-red-500'}`}>${txn.amount}</td>
+                  <td className={`p-2 ${txn.amount > 0 ? 'text-green-300' : 'text-red-300'}`}>
+                    ${txn.amount}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -55,19 +59,37 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Spending Analytics */}
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">Spending Trends</h2>
+      {/* Spending Analytics
+      <div className="p-6 rounded-lg shadow-lg w-full max-w-4xl mt-6 border-2 border-blue-gradient transition-all duration-300 hover:bg-black-gradient">
+        <h2 className="text-xl font-semibold text-gradient mb-4">
+          Spending Trends
+        </h2>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={transactions}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
-            <YAxis />
-            <Tooltip />
-            <Line type="monotone" dataKey="amount" stroke="#8884d8" strokeWidth={2} />
+            <XAxis dataKey="date" stroke="#ffffff" />
+            <YAxis stroke="#ffffff" />
+            <Tooltip wrapperStyle={{ backgroundColor: '#ffffff', color: '#000000' }} />
+            <Line type="monotone" dataKey="amount" stroke="#ffcc00" strokeWidth={2} />
+          </LineChart>
+        </ResponsiveContainer>
+      </div> */}
+      {/* Spending Analytics */}
+      <div className="p-6 rounded-lg shadow-lg w-full max-w-4xl mt-6 border-2 border-blue-gradient transition-all duration-300 hover:bg-black-gradient">
+        <h2 className="text-xl font-semibold text-gradient mb-4">
+          Spending Trends
+        </h2>
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={transactions.filter(txn => txn.amount < 0)}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="date" stroke="#ffffff" />
+            <YAxis stroke="#ffffff" domain={["auto", 0]} /> 
+            <Tooltip wrapperStyle={{ backgroundColor: '#ffffff', color: '#000000' }} />
+            <Line type="monotone" dataKey="amount" stroke="#ff4c4c" strokeWidth={2} />
           </LineChart>
         </ResponsiveContainer>
       </div>
+
     </div>
   );
 };
